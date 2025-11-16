@@ -1,0 +1,22 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-debug.log*
+yarn-error.log*
+package-lock.json   # optional – keep if you want lockfile in repo
+# Logs
+*.log
+server.log
+
+# Build / public assets (if you generate them)
+dist/
+build/
+public/build/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/

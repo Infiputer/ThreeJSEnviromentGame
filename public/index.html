@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>A Sustainable World — Competitive</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="overlay">
+      <div id="topbar">
+        <strong style="font-size:1.2em;color:#ff6b00;">Score: <span id="score">0</span></strong> &nbsp; 
+        Sustainability: <span id="sust">0</span> &nbsp; 
+        Ammo: <span id="ammo">0</span>
+      </div>
+      <div id="scoreNotification" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,107,0,0.9);color:white;padding:20px 40px;border-radius:10px;font-size:2em;font-weight:bold;z-index:2000;display:none;pointer-events:none;text-shadow:2px 2px 4px rgba(0,0,0,0.5);">+0</div>
+      <div id="resources">
+        Health: <span id="health">100</span> &nbsp;
+        Water: <span id="water">100</span> &nbsp;
+        Energy: <span id="energy">0</span> &nbsp;
+        Minerals: <span id="minerals">0</span> &nbsp;
+        Seeds: <span id="seeds">0</span>
+      </div>
+      <div id="scannerIndicator" style="position:fixed;top:80px;right:10px;background:rgba(0,255,0,0.8);color:white;padding:8px 15px;border-radius:6px;font-family:sans-serif;font-weight:bold;z-index:1000;display:none;box-shadow:0 0 10px rgba(0,255,0,0.5);">✓ SCANNER ACTIVE</div>
+      <div id="info">
+        WASD: Move | Left-click: Shoot | E: Plant Tree | R: Build Solar Panel<br>
+        Q: Speed Boost | F: Shield | G: Scanner | T: Teleport (WASD direction)
+      </div>
+      <div id="death" style="display:none">YOU DIED — Respawning...</div>
+    </div>
+    <div id="fps" style="position:fixed;top:10px;right:10px;background:rgba(255,255,255,0.9);padding:6px 10px;border-radius:6px;font-family:sans-serif;color:#111;z-index:1000;">FPS: --</div>
+
+    <div id="startOverlay">
+      <div class="start-box">
+        <h1>A Sustainable World</h1>
+        <p style="font-size:1.1em;color:#ff6b00;font-weight:bold;">🎯 GOAL: Increase your SCORE to win!</p>
+        <p>Score is your primary objective. Sustainability helps but Score wins the game.</p>
+        <h2>How to Increase Score</h2>
+        <ul style="text-align:left;margin:8px 0 16px 0;font-size:14px;font-weight:bold;">
+          <li style="color:#ff6b00;">💀 Kill Players: +5 Score</li>
+          <li style="color:#ff6b00;">🌳 Harvest Grown Trees: +5 Score</li>
+          <li style="color:#ff6b00;">🌲 Collect Wild Trees: +3 Score</li>
+          <li style="color:#ff6b00;">⚡ Build Solar Panels: +3 Score</li>
+          <li style="color:#ff6b00;">🌱 Plant Trees: +2 Score</li>
+        </ul>
+        <h2>Complete Resource Guide</h2>
+        
+        <h3 style="margin-top:12px;margin-bottom:6px">🌳 Trees (Green - Walk Over to Collect)</h3>
+        <ul style="text-align:left;margin:4px 0 12px 0;font-size:13px">
+          <li><strong>What it gives:</strong> +1 Sustainability, <strong style="color:#ff6b00;">+3 Score</strong>, +3 Ammo</li>
+          <li><strong>Why collect:</strong> <strong style="color:#ff6b00;">+3 Score!</strong> Quick way to increase your score</li>
+          <li><strong>Strategy:</strong> Collect wild trees for immediate score, plant your own for long-term gains</li>
+        </ul>
+        
+        <h3 style="margin-top:12px;margin-bottom:6px">💎 Minerals (Orange/Gold Octahedrons - Walk Over to Collect)</h3>
+        <ul style="text-align:left;margin:4px 0 12px 0;font-size:13px">
+          <li><strong>What it gives:</strong> +1 Mineral (max 50)</li>
+          <li><strong>Why collect:</strong> Build solar panels! Need 5 minerals per panel</li>
+          <li><strong>How to use:</strong> Collect 5 minerals → Press <strong>R</strong> to build a solar panel</li>
+          <li><strong>Score reward:</strong> Building a panel gives <strong style="color:#ff6b00;">+3 Score</strong>!</li>
+          <li><strong>Strategy:</strong> Build panels early - they give score AND generate energy for abilities</li>
+        </ul>
+        
+        <h3 style="margin-top:12px;margin-bottom:6px">🌊 Flowing Water System</h3>
+        <ul style="text-align:left;margin:4px 0 12px 0;font-size:13px">
+          <li><strong>How it works:</strong> Water flows naturally across the terrain, collecting in low areas (rivers and pools)</li>
+          <li><strong>Drinking:</strong> Stand near flowing water to automatically drink - water drains from the area as you drink</li>
+          <li><strong>Water decay:</strong> Your water decays 0.1/second when not near water</li>
+          <li><strong>Danger:</strong> If water hits 0, you lose 0.2 health/second until death!</li>
+          <li><strong>Strategy:</strong> Follow water flow to find pools in low areas - water flows downhill to local minimums</li>
+          <li><strong>Rain system:</strong> When global water levels get too low, it will rain to replenish water across the map</li>
+        </ul>
+        
+        <h3 style="margin-top:12px;margin-bottom:6px">🌱 Seeds (Brown Spheres - Walk Over to Collect)</h3>
+        <ul style="text-align:left;margin:4px 0 12px 0;font-size:13px">
+          <li><strong>What it gives:</strong> +1 Seed (max 10)</li>
+          <li><strong>Why collect:</strong> Plant trees to earn score!</li>
+          <li><strong>How to use:</strong> Press <strong>E</strong> to plant a tree (uses 1 seed)</li>
+          <li><strong>Planting reward:</strong> <strong style="color:#ff6b00;">+2 Score</strong> immediately when you plant!</li>
+          <li><strong>Growth time:</strong> 30 seconds to fully grow (3 stages)</li>
+          <li><strong>Harvest reward:</strong> +2 Sustainability, <strong style="color:#ff6b00;">+5 Score</strong>, +1 Seed (you get the seed back!)</li>
+          <li><strong>Enhanced planting:</strong> Press <strong>Shift+E</strong> to use 10 energy for instant full growth</li>
+          <li><strong>Strategy:</strong> Plant trees early - get +2 score immediately, then +5 more when you harvest!</li>
+        </ul>
+        
+        <h3 style="margin-top:12px;margin-bottom:6px">⚡ Energy System (Generated by Solar Panels)</h3>
+        <ul style="text-align:left;margin:4px 0 12px 0;font-size:13px">
+          <li><strong>How to get:</strong> Build solar panels with minerals (5 minerals = 1 panel)</li>
+          <li><strong>Generation:</strong> Each panel generates 0.5 energy/second (max 100 energy)</li>
+          <li><strong>More panels = faster energy:</strong> 2 panels = 1 energy/sec, 4 panels = 2 energy/sec</li>
+          <li><strong>Uses for energy:</strong>
+            <ul style="margin:4px 0">
+              <li><strong>Q - Speed Boost:</strong> 20 energy, 5 seconds, 1.5x speed (escape/chase)</li>
+              <li><strong>F - Shield:</strong> 30 energy, 10 seconds, blocks 1 bullet (survival)</li>
+              <li><strong>G - Resource Scanner:</strong> 15 energy, 10 seconds, highlights resources within 200m (find resources fast!)</li>
+              <li><strong>T - Teleport:</strong> 25 energy, teleport 5 units in movement direction (tactical positioning)</li>
+              <li><strong>Shift+E - Enhanced Plant:</strong> 10 energy, instant tree growth (quick sustainability)</li>
+            </ul>
+          </li>
+          <li><strong>Strategy:</strong> Build 4-6 panels early for steady energy income, then use abilities strategically</li>
+        </ul>
+        
+        <h3 style="margin-top:12px;margin-bottom:6px">🎯 Winning Strategy - Maximize Your Score!</h3>
+        <ul style="text-align:left;margin:4px 0 12px 0;font-size:13px">
+          <li><strong>Early game:</strong> Collect trees (+3 score each) → Collect minerals → Build solar panels (+3 score each)</li>
+          <li><strong>Mid game:</strong> Plant trees (+2 score each) → Collect water to survive → Use scanner to find resources</li>
+          <li><strong>Late game:</strong> Harvest grown trees (+5 score each) → Hunt players (+5 score per kill) → Build more panels</li>
+          <li><strong>Key tip:</strong> <strong style="color:#ff6b00;">Score is everything!</strong> Every action should aim to increase your score. Sustainability is secondary.</li>
+        </ul>
+        <p><strong>Controls:</strong> Click to lock pointer. WASD to move, mouse to look, left-click to shoot.</p>
+        <p class="start-cta">Click anywhere to start</p>
+      </div>
+    </div>
+    <canvas id="c"></canvas>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>
